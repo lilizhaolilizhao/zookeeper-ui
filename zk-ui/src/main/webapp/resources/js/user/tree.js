@@ -1,4 +1,7 @@
 var setting = {
+    check: {
+        enable: true
+    },
     data: {
         simpleData: {
             enable: true,
