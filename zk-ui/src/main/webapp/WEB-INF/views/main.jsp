@@ -54,6 +54,10 @@
             <button onclick="search();">搜索</button>
             &nbsp;
             <button onclick="add();">添加节点</button>
+            &nbsp;
+            <button onclick="export_config();">导出配置</button>
+            &nbsp;
+            <button onclick="import_config();">导入配置</button>
         </div>
         <ul id="zkTree" class="ztree" style="width: 300px;">
 
