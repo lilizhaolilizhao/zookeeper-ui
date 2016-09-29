@@ -136,20 +136,24 @@ function export_config() {
         var cur_node_fullpath = nodes[i].fullPath;
         exportPaths = exportPaths + ";" + cur_node_fullpath;
     }
+
+
     if (exportPaths && exportPaths != '') {
-        $.ajax({
-            url: contextPath + "/exportConfig",
-            type: "post",
-            dataType: "json",
-            data: {"exportPaths": exportPaths},
-            success: function (data) {
-                if (data.isSuccess) {
-                    alert(data.content);
-                } else {
-                    alert(data.content);
-                }
-            }
-        });
+        window.location.href=contextPath + "/exportConfig?exportPaths=" + exportPaths;
+        //$.ajax({
+        //    url: contextPath + "/exportConfig",
+        //    type: "post",
+        //    dataType: "json",
+        //    //data: {"exportPaths": exportPaths},
+        //    data: {"fileName": exportPaths},
+        //    success: function (data) {
+        //        if (data.isSuccess) {
+        //            alert(data.content);
+        //        } else {
+        //            alert(data.content);
+        //        }
+        //    }
+        //});
     }
     //alert(export_paths);
 }

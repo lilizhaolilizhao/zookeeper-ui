@@ -5,16 +5,26 @@ import com.javazyw.zk.util.ClientFactory;
 import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
 import com.javazyw.zk.vo.TreeVO;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.zookeeper.CreateMode;
+import org.bouncycastle.util.encoders.Base64;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,11 +187,35 @@ public class ZkController {
         return msg;
     }
 
+    @RequestMapping("download")
+    public ResponseEntity<byte[]> download() throws IOException {
+        String path = "/Users/lilizhao/git/zookeeper-ui/zk-ui/src/main/webapp/WEB-INF/web.xml";
+        File file = new File(path);
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = new String("你好.txt".getBytes("UTF-8"), "iso-8859-1");//为了解决中文名称乱码问题
+        headers.setContentDispositionFormData("attachment", fileName);
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+    }
+
     @ResponseBody
     @RequestMapping(value = "exportConfig")
-    public AjaxMessage exportConfig(String exportPaths) {
+    public AjaxMessage exportConfig(String exportPaths, HttpServletResponse response) throws UnsupportedEncodingException {
         AjaxMessage msg = new AjaxMessage(true, "添加成功!");
+
+        PrintWriter writer = null;
+        String filepath = "test.txt";
+        String fileName = URLDecoder.decode(filepath, "utf-8");
+
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("gb2312"), "ISO8859-1") + "\";");
+        //attachment --- 作为附件下载
+
         try {
+            writer = response.getWriter();
+            response.reset();
+            response.setContentType("application/octet-stream");
+
             String[] exportPathArray = exportPaths.split(";");
             for (String path : exportPathArray) {
                 if (!"".equals(path)) {
@@ -189,8 +223,7 @@ public class ZkController {
                     node.start(true); //这个参数要给true  不然下边空指针...
                     String data = new String(node.getCurrentData().getData() == null ? new byte[]{} : node.getCurrentData().getData());
 
-                    System.out.println(path + " : " + data);
-
+                    writer.write(path + "=" + new String(Base64.encode(data.getBytes())) + "\n");
                     node.close();
                 }
             }
@@ -201,6 +234,10 @@ public class ZkController {
             e.printStackTrace();
             msg.setIsSuccess(false);
             msg.setContent("服务端异常，" + e.getMessage());
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
         }
         return msg;
     }
@@ -239,17 +276,20 @@ public class ZkController {
 		client.create().forPath("/b", "bbb".getBytes());
 		client.create().forPath("/b/b_1", "b_1b_1b_1b_1".getBytes());*/
         //client.setData().forPath("/a", "aaaaaaaaaaaa".getBytes());
-        List<TreeVO> treeList = new ArrayList<TreeVO>();
-        List<String> list = client.getChildren().forPath("/");
-        System.out.println("list===>" + list);
-        //recursionTree("", list, treeList, 0);
+//        List<TreeVO> treeList = new ArrayList<TreeVO>();
+//        List<String> list = client.getChildren().forPath("/");
+//        System.out.println("list===>" + list);
+//        recursionTree("", list, treeList, 0);
+//
+//        System.out.println(treeList);
+//
+//        System.out.println(JSONArray.toJSONString(treeList));
 
-        System.out.println(treeList);
-
-        System.out.println(JSONArray.toJSONString(treeList));
-        ;
-
+        byte[] encode = Base64.encode("test123".getBytes());
+        String test = new String(encode);
+        System.out.println(test);
     }
+
 
 
 }
