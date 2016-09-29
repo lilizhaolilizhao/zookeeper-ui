@@ -66,7 +66,7 @@ public class Listener implements ServletContextListener {
     public String getSystem() {
         Properties props = System.getProperties();
         /*props.getProperty("os.name");
-		props.getProperty("os.arch");
+        props.getProperty("os.arch");
 		props.getProperty("os.version");*/
         return props.getProperty("os.name");
     }

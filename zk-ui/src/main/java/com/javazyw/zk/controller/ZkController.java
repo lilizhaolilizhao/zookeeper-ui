@@ -178,6 +178,34 @@ public class ZkController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "exportConfig")
+    public AjaxMessage exportConfig(String exportPaths) {
+        AjaxMessage msg = new AjaxMessage(true, "添加成功!");
+        try {
+            String[] exportPathArray = exportPaths.split(";");
+            for (String path : exportPathArray) {
+                if (!"".equals(path)) {
+                    NodeCache node = new NodeCache(client, path);
+                    node.start(true); //这个参数要给true  不然下边空指针...
+                    String data = new String(node.getCurrentData().getData() == null ? new byte[]{} : node.getCurrentData().getData());
+
+                    System.out.println(path + " : " + data);
+
+                    node.close();
+                }
+            }
+
+            msg.setIsSuccess(true);
+            msg.setContent("配置信息导出成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg.setIsSuccess(false);
+            msg.setContent("服务端异常，" + e.getMessage());
+        }
+        return msg;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "deletePath")
     public AjaxMessage deletePath(String path) {
 
@@ -206,7 +234,7 @@ public class ZkController {
 
         ///client.create().forPath("/ddddddd", "aaa".getBytes());
         /*client.create().forPath("/a", "aaa".getBytes());
-		client.create().forPath("/a/a_1", "a_1a_1a_1".getBytes());
+        client.create().forPath("/a/a_1", "a_1a_1a_1".getBytes());
 		client.create().forPath("/a/a_2", "a_2a_2a_2".getBytes());
 		client.create().forPath("/b", "bbb".getBytes());
 		client.create().forPath("/b/b_1", "b_1b_1b_1b_1".getBytes());*/

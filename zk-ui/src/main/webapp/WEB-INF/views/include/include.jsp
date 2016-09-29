@@ -23,7 +23,7 @@
         src="${pageContext.request.contextPath}/resources/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 
 <%--<script type="text/javascript"--%>
-        <%--src="${pageContext.request.contextPath}/resources/js/ztree/js/jquery.ztree.excheck-3.5.js"></script>--%>
+<%--src="${pageContext.request.contextPath}/resources/js/ztree/js/jquery.ztree.excheck-3.5.js"></script>--%>
 
 <link href="${pageContext.request.contextPath}/resources/js/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"
       media="screen">

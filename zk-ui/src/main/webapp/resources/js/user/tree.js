@@ -105,9 +105,7 @@ function update() {
 
 function add() {
     var path = $('#add_search').val();
-
     if (path && path != '') {
-
         if (confirm("确定要添加么？")) {
             $.ajax({
                 url: contextPath + "/addPath",
@@ -131,31 +129,41 @@ function add() {
 }
 
 function export_config() {
-    var path = $('#add_search').val();
+    var exportPaths = "";
 
-    if (path && path != '') {
-
-        if (confirm("确定要添加么？")) {
-            $.ajax({
-                url: contextPath + "/addPath",
-                type: "post",
-                dataType: "json",
-                data: {"path": path, "data": $('#add_data').val(), "flag": $('#flag').val()},
-                success: function (data) {
-                    if (data.isSuccess) {
-                        alert(data.content);
-                        //刷新树
-                        loadTree();
-                    } else {
-                        alert(data.content);
-                    }
-                }
-            });
-        }
-    } else {
-        alert("path不能为空！");
+    var nodes = treeObj.getCheckedNodes();
+    for (var i = 0; i < nodes.length; i++) {
+        var cur_node_fullpath = nodes[i].fullPath;
+        exportPaths = exportPaths + ";" + cur_node_fullpath;
     }
+    if (exportPaths && exportPaths != '') {
+        $.ajax({
+            url: contextPath + "/exportConfig",
+            type: "post",
+            dataType: "json",
+            data: {"exportPaths": exportPaths},
+            success: function (data) {
+                if (data.isSuccess) {
+                    alert(data.content);
+                } else {
+                    alert(data.content);
+                }
+            }
+        });
+    }
+    //alert(export_paths);
 }
+
+///**
+// * 获取全路径
+// * @param node
+// * @returns {*}
+// */
+//function getPathText(node) {
+//    var s = node.name;
+//    while (node = node.getParentNode())s = node.name + '/' + s;
+//    return s;
+//}
 
 function import_config() {
     var path = $('#add_search').val();

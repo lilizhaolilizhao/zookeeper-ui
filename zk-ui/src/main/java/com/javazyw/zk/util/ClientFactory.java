@@ -32,7 +32,7 @@ public class ClientFactory {
     private static CuratorFramework newClient() {
         //String connectionString = "192.168.11.56:2180,192.168.11.56:2181,192.168.11.56:2182";
         /*String connectionString = "localhost:2182";
-		ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
 		return CuratorFrameworkFactory.newClient(connectionString, retryPolicy);*/
 
         CuratorFramework client = CuratorFrameworkFactory.builder().connectString(ResourcesUtils.bundle.getString("connectString"))
@@ -44,7 +44,7 @@ public class ClientFactory {
                         //.defaultData(null) .authorization("digest", "admin:admin123321".getBytes())
                 .build();
         return client;
-		/*client.start();*/
+        /*client.start();*/
 
     }
 
