@@ -1,6 +1,5 @@
 package com.javazyw.zk.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.javazyw.zk.util.ClientFactory;
 import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
@@ -21,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -204,16 +205,16 @@ public class ZkController {
         AjaxMessage msg = new AjaxMessage(true, "添加成功!");
 
         PrintWriter writer = null;
-        String filepath = "test.txt";
-        String fileName = URLDecoder.decode(filepath, "utf-8");
-
-        response.setContentType("application/octet-stream");
-        response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("gb2312"), "ISO8859-1") + "\";");
-        //attachment --- 作为附件下载
-
         try {
             writer = response.getWriter();
             response.reset();
+
+            String filepath = "zookeeper.txt";
+            String fileName = URLDecoder.decode(filepath, "utf-8");
+
+            response.setContentType("application/octet-stream");
+            //attachment --- 作为附件下载
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("gb2312"), "ISO8859-1") + "\";");
             response.setContentType("application/octet-stream");
 
             String[] exportPathArray = exportPaths.split(";");
@@ -289,7 +290,6 @@ public class ZkController {
         String test = new String(encode);
         System.out.println(test);
     }
-
 
 
 }
