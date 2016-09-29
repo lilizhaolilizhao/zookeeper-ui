@@ -23,8 +23,6 @@ import java.util.UUID;
  */
 @Controller
 public class DiscoveryController {
-
-
     private static final ServiceDiscovery<InstanceDetails> serviceDiscovery;
 
     static {

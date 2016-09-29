@@ -155,7 +155,6 @@ function export_config() {
         //    }
         //});
     }
-    //alert(export_paths);
 }
 
 ///**
@@ -170,30 +169,7 @@ function export_config() {
 //}
 
 function import_config() {
-    var path = $('#add_search').val();
 
-    if (path && path != '') {
-
-        if (confirm("确定要添加么？")) {
-            $.ajax({
-                url: contextPath + "/addPath",
-                type: "post",
-                dataType: "json",
-                data: {"path": path, "data": $('#add_data').val(), "flag": $('#flag').val()},
-                success: function (data) {
-                    if (data.isSuccess) {
-                        alert(data.content);
-                        //刷新树
-                        loadTree();
-                    } else {
-                        alert(data.content);
-                    }
-                }
-            });
-        }
-    } else {
-        alert("path不能为空！");
-    }
 }
 
 function deletePath() {
