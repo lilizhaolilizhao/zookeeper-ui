@@ -247,11 +247,22 @@ public class ZkController {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] lines = line.split("=", 2);
-
+                byte[] data;
                 if (!"".equals(lines[1])) {
-                    System.out.println(lines[0] + "=" + new String(Base64.decode(lines[1].getBytes())));
+                    data = Base64.decode(lines[1].getBytes());
                 } else {
-                    System.out.println(lines[0] + "=");
+                    data = "".getBytes();
+                }
+
+                try {
+                    if (client.checkExists().forPath(lines[0]) == null) {
+                        client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(lines[0], data);
+                    } else {
+                        client.setData().forPath(lines[0], data);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    logger.warn("写入数据失败" + e.getMessage());
                 }
             }
         }
