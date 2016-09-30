@@ -17,14 +17,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -201,9 +201,7 @@ public class ZkController {
 
     @ResponseBody
     @RequestMapping(value = "exportConfig")
-    public AjaxMessage exportConfig(String exportPaths, HttpServletResponse response) throws UnsupportedEncodingException {
-        AjaxMessage msg = new AjaxMessage(true, "添加成功!");
-
+    public void exportConfig(String exportPaths, HttpServletResponse response) throws UnsupportedEncodingException {
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
@@ -228,29 +226,42 @@ public class ZkController {
                     node.close();
                 }
             }
-
-            msg.setIsSuccess(true);
-            msg.setContent("配置信息导出成功!");
         } catch (Exception e) {
             e.printStackTrace();
-            msg.setIsSuccess(false);
-            msg.setContent("服务端异常，" + e.getMessage());
         } finally {
             if (writer != null) {
                 writer.close();
             }
         }
-        return msg;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "importConfig")
+    public void importConfig(@RequestParam MultipartFile myfile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (myfile.isEmpty()) {
+            System.out.println("文件未上传!");
+        } else {
+            //得到上传的文件名
+            BufferedReader reader = new BufferedReader(new InputStreamReader(myfile.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lines = line.split("=", 2);
+
+                if (!"".equals(lines[1])) {
+                    System.out.println(lines[0] + "=" + new String(Base64.decode(lines[1].getBytes())));
+                } else {
+                    System.out.println(lines[0] + "=");
+                }
+            }
+        }
     }
 
     @ResponseBody
     @RequestMapping(value = "deletePath")
     public AjaxMessage deletePath(String path) {
-
         AjaxMessage msg = new AjaxMessage(true, "删除成功!");
-
         try {
-
             if (client.checkExists().forPath(path) != null) {
                 client.delete().deletingChildrenIfNeeded().forPath(path);
 
