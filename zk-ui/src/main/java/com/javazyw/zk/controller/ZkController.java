@@ -5,6 +5,7 @@ import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
 import com.javazyw.zk.vo.TreeVO;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.curator.framework.CuratorFramework;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -235,9 +237,24 @@ public class ZkController {
         }
     }
 
+    protected void alertAndclose(HttpServletResponse response, String msg) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            out.print("<script>alert('" + msg + "');window.close();</script>");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+//            IOUtils.closeQuietly(out);
+        }
+    }
+
     @ResponseBody
     @RequestMapping(value = "importConfig")
-    public void importConfig(@RequestParam MultipartFile myfile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView importConfig(@RequestParam MultipartFile myfile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (myfile.isEmpty()) {
             System.out.println("文件未上传!");
         } else {
@@ -266,6 +283,8 @@ public class ZkController {
                 }
             }
         }
+
+        return new ModelAndView(new RedirectView("welcome"));
     }
 
     @ResponseBody

@@ -157,19 +157,26 @@ function export_config() {
     }
 }
 
-///**
-// * 获取全路径
-// * @param node
-// * @returns {*}
-// */
-//function getPathText(node) {
-//    var s = node.name;
-//    while (node = node.getParentNode())s = node.name + '/' + s;
-//    return s;
-//}
-
-function import_config() {
-
+function importConfig() {
+    alert("1111;");
+    return false;
+    //var form = new FormData(document.getElementById("import_config"));
+    //var file = $('#file').text();
+    //
+    //$.ajax({
+    //    url: contextPath + "/importConfig",
+    //    type: "post",
+    //    dataType: "json",
+    //    data: form,
+    //    success: function (data) {
+    //        //alert(data.content);
+    //        window.clearInterval(timer);
+    //    },
+    //    error:function(e){
+    //        alert("错误！！");
+    //        window.clearInterval(timer);
+    //    }
+    //});
 }
 
 function deletePath() {

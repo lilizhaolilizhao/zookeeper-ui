@@ -58,8 +58,8 @@
             <button onclick="export_config();">导出配置</button>
             &nbsp;
             <form action="./importConfig" method="post" enctype="multipart/form-data">
-                导入配置: <input type="file" name="myfile"/><br/>
-                <input type="submit" value="上传">
+                <input type="file" name="myfile"/><br/>
+                <input type="submit" value="导入配置">
             </form>
         </div>
         <ul id="zkTree" class="ztree" style="width: 300px;">
