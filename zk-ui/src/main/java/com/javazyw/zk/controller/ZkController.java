@@ -5,7 +5,6 @@ import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
 import com.javazyw.zk.vo.TreeVO;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.curator.framework.CuratorFramework;
@@ -220,6 +219,8 @@ public class ZkController {
             String[] exportPathArray = exportPaths.split(";");
             for (String path : exportPathArray) {
                 if (!"".equals(path)) {
+                    path = URLDecoder.decode(path, "utf-8");
+
                     NodeCache node = new NodeCache(client, path);
                     node.start(true); //这个参数要给true  不然下边空指针...
                     String data = new String(node.getCurrentData().getData() == null ? new byte[]{} : node.getCurrentData().getData());

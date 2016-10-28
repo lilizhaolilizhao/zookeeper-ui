@@ -139,7 +139,8 @@ function export_config() {
 
 
     if (exportPaths && exportPaths != '') {
-        window.location.href = contextPath + "/exportConfig?exportPaths=" + exportPaths;
+        //exportPaths = encodeURI(encodeURI(exportPaths));
+        window.location.href = contextPath + "/exportConfig?exportPaths=" + encodeURI(encodeURI(exportPaths));
         //$.ajax({
         //    url: contextPath + "/exportConfig",
         //    type: "post",
