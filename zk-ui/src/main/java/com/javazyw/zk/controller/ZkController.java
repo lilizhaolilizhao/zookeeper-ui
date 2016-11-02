@@ -25,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -33,8 +34,6 @@ import java.util.List;
 
 @Controller
 public class ZkController {
-
-
     private static final Log logger = LogFactory.getLog(ZkController.class);
 
     static CuratorFramework client = ClientFactory.getInstance();
@@ -42,7 +41,6 @@ public class ZkController {
     @RequestMapping(value = "/main")
     public ModelAndView mian() {
         System.out.println("---------");
-
 
         return new ModelAndView("main");
     }
@@ -290,12 +288,16 @@ public class ZkController {
 
     @ResponseBody
     @RequestMapping(value = "updateZookeeperConfig")
-    public ModelAndView importConfig(String zookeeperUrl, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView importConfig(String zookeeperUrl, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         if (!zookeeperUrl.endsWith("2181")) {
             zookeeperUrl = zookeeperUrl + ":2181";
         }
 
         client = ClientFactory.getInstance(zookeeperUrl);
+
+        session.setAttribute("zookeeperUrl", zookeeperUrl.split(":")[0]);
+
+        System.out.println(zookeeperUrl);
 
         return new ModelAndView(new RedirectView("welcome"));
     }

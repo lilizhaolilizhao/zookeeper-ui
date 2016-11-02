@@ -40,6 +40,7 @@ public class LoginController {
             } else {
                 //登录
                 session.setAttribute(ResourcesUtils.SESSION_KEY, username);
+                session.setAttribute("zookeeperUrl", ResourcesUtils.bundle.getString("connectString").split(":")[0]);
                 return new ModelAndView(new RedirectView("welcome"));
             }
         }

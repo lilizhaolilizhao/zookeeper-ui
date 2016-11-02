@@ -46,7 +46,8 @@ public class ClientFactory {
         ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
 		return CuratorFrameworkFactory.newClient(connectionString, retryPolicy);*/
 
-        CuratorFramework client = CuratorFrameworkFactory.builder().connectString(ResourcesUtils.bundle.getString("connectString"))
+        String connectString = ResourcesUtils.bundle.getString("connectString");
+        CuratorFramework client = CuratorFrameworkFactory.builder().connectString(connectString)
                 .sessionTimeoutMs(10000)
                 .connectionTimeoutMs(30000)
                 .canBeReadOnly(false)

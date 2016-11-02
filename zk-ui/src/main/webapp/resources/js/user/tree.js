@@ -240,6 +240,10 @@ function loadTree() {
     });
 }
 
+function update_zookeeper_config() {
+    var zookeeper_url = $('#zookeeper_url').val();
+    window.location.href = contextPath + "/updateZookeeperConfig?zookeeperUrl=" + encodeURI(encodeURI(zookeeper_url));
+}
 
 $(document).ready(function () {
     loadTree();
