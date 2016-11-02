@@ -29,6 +29,17 @@ public class ClientFactory {
         }
     }
 
+    public static CuratorFramework getInstance(String zookeeperUrl) {
+        if (client != null) {
+            client.close();
+        }
+
+        client = newClient(zookeeperUrl);
+        client.start();
+
+        return client;
+    }
+
     private static CuratorFramework newClient() {
         //String connectionString = "192.168.11.56:2180,192.168.11.56:2181,192.168.11.56:2182";
         /*String connectionString = "localhost:2182";
@@ -46,6 +57,16 @@ public class ClientFactory {
         return client;
         /*client.start();*/
 
+    }
+
+    private static CuratorFramework newClient(String zookeeperUrl) {
+        CuratorFramework client = CuratorFrameworkFactory.builder().connectString(zookeeperUrl)
+                .sessionTimeoutMs(10000)
+                .connectionTimeoutMs(30000)
+                .canBeReadOnly(false)
+                .retryPolicy(new ExponentialBackoffRetry(1000, Integer.MAX_VALUE))
+                .build();
+        return client;
     }
 
     public static CuratorFramework newClientAcl() {

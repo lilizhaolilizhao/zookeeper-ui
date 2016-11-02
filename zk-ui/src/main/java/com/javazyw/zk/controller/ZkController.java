@@ -37,7 +37,7 @@ public class ZkController {
 
     private static final Log logger = LogFactory.getLog(ZkController.class);
 
-    static final CuratorFramework client = ClientFactory.getInstance();
+    static CuratorFramework client = ClientFactory.getInstance();
 
     @RequestMapping(value = "/main")
     public ModelAndView mian() {
@@ -284,6 +284,18 @@ public class ZkController {
                 }
             }
         }
+
+        return new ModelAndView(new RedirectView("welcome"));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "updateZookeeperConfig")
+    public ModelAndView importConfig(String zookeeperUrl, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!zookeeperUrl.endsWith("2181")) {
+            zookeeperUrl = zookeeperUrl + ":2181";
+        }
+
+        client = ClientFactory.getInstance(zookeeperUrl);
 
         return new ModelAndView(new RedirectView("welcome"));
     }
