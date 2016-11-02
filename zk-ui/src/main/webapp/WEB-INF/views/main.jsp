@@ -30,8 +30,9 @@
 <div class="content_wrap" style="width: 100%;">
     <div class="content_wrap_title" style="width: 100%">
         <span style="width: 400px">zk ui 树管理 （${SESSION_KEY}）  </span>
-        <input type="text" id="zookeeper_url" name="zookeeper_url" value=${zookeeperUrl}/>
-        <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接"/>
+        <input type="text" id="zookeeper_url" value=${zookeeperUrl} name="zookeeper_url" align="right"/>
+        <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接"
+               align="right"/>
     </div>
     <div class="zTreeDemoBackground left" style="width: 400px; margin-left:20px">
         <div style="margin: 5px">
