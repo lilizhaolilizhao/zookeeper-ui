@@ -21,6 +21,14 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
+    @RequestMapping(value = "/")
+    public ModelAndView home(String msg) throws Exception {
+        if (msg != null) {
+            msg = URLDecoder.decode(msg, "utf8");
+        }
+        return new ModelAndView("login", "msg", msg);
+    }
+
     @RequestMapping(value = "toLogin")
     public ModelAndView toLogin(String msg) throws Exception {
         if (msg != null) {
