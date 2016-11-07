@@ -59,6 +59,7 @@ function zTreeOnClick(event, treeId, treeNode) {
         dataType: "json",
         success: function (data) {
             $('#data').val(data.data);
+            $('#dataformat').val(data.dataFormat);
             //alert(data.stat.mzxid)
             $('#czxid').text(data.stat.czxid);
             $('#mzxid').text(data.stat.mzxid);

@@ -8,6 +8,16 @@ public class TreeInfo {
 
     private String data;
 
+    private String dataFormat;
+
+    public String getDataFormat() {
+        return dataFormat;
+    }
+
+    public void setDataFormat(String dataFormat) {
+        this.dataFormat = dataFormat;
+    }
+
     public String getData() {
         return data;
     }

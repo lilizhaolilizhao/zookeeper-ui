@@ -79,7 +79,8 @@
                 DATA:
                 (<a href="javascript:void(0)" onclick="update();">更新节点数据</a>)
                 <textarea style="width: 400px;height: 100px" id="data"></textarea>
-
+                DATA:数据格式化(只读)
+                <textarea style="width: 700px;height: 700px" id="dataformat" disabled="disabled"></textarea>
 
             </li>
             <li style="line-height: 30px">

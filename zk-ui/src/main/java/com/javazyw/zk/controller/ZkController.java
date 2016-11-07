@@ -1,6 +1,8 @@
 package com.javazyw.zk.controller;
 
 import com.javazyw.zk.util.ClientFactory;
+import com.javazyw.zk.util.JsonUtil;
+import com.javazyw.zk.util.XmlFormatUtil;
 import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
 import com.javazyw.zk.vo.TreeVO;
@@ -129,9 +131,17 @@ public class ZkController {
         node.start(true); //这个参数要给true  不然下边空指针...
         String d = new String(node.getCurrentData().getData() == null ? new byte[]{} : node.getCurrentData().getData());
 
-
         TreeInfo info = new TreeInfo();
         info.setData(d);
+
+        try {
+            info.setDataFormat(JsonUtil.formatJson(d));
+
+            String xmlFormat = XmlFormatUtil.format(d);
+            info.setDataFormat(xmlFormat);
+        } catch (Exception e) {
+        }
+
         info.setStat(node.getCurrentData().getStat());
 
         node.close();
