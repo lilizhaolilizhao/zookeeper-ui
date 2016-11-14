@@ -123,6 +123,25 @@ function subNetwork1() {
     }
 }
 
+function subNetwork2() {
+    var ipAddress = $('#ipAddress').val();
+    var maskBit = $('#maskBit').val();
+
+    if (ipAddress != '' && maskBit != '') {
+        $.ajax({
+            url: contextPath + "/subNetwork2",
+            type: "post",
+            dataType: "json",
+            data: {"ipAddress": ipAddress, "maskBit": maskBit, "data": $('#data').val()},
+            success: function (data) {
+                $('#subnet').val(data.subnet);
+            }
+        });
+    } else {
+        alert("ip不能为空!");
+    }
+}
+
 ///**
 //* 导入excel
 //*/

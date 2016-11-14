@@ -12,6 +12,16 @@ public class TreeInfo {
 
     private String subnetInfo;
 
+    private String subnet;
+
+    public String getSubnet() {
+        return subnet;
+    }
+
+    public void setSubnet(String subnet) {
+        this.subnet = subnet;
+    }
+
     public String getSubnetInfo() {
         return subnetInfo;
     }

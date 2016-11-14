@@ -154,8 +154,21 @@ public class ZkController {
 
         TreeInfo treeInfo = new TreeInfo();
 
-        String subnetInfo = IPUtils.getSubnetInfo(startIP, endIP);
+        String subnetInfo = IPUtils.getSubnetInfo(startIP.trim(), endIP.trim());
         treeInfo.setSubnetInfo(subnetInfo);
+
+        return treeInfo;
+    }
+
+    @ResponseBody
+    @RequestMapping("subNetwork2")
+    public TreeInfo subNetwork2(String ipAddress, String maskBit) throws Exception {
+        System.out.println(ipAddress + "==>" + maskBit);
+
+        TreeInfo treeInfo = new TreeInfo();
+
+        String subnetInfo = IPUtils.getSubNet(ipAddress.trim(), IPUtils.getNetMask(Integer.parseInt(maskBit.trim()))) + "/" + maskBit;
+        treeInfo.setSubnet(subnetInfo);
 
         return treeInfo;
     }

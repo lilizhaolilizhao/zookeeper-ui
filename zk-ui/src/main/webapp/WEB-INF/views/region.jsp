@@ -25,10 +25,20 @@
         <br/>
 
         <div style="margin: 5px">
-            辅助工具:<br/>
+            辅助工具1:<br/>
             开始IP: <input type="text" id="startIP" name="startIP" value="10.75.36.67" align="right"/><br/>
             结束IP: <input type="text" id="endIP" name="endIP" value="10.75.36.127" align="right"/><br/>
-            <button onclick="subNetwork1();">计算子网:</button> <input type="text" id="subnetInfo" name="subnetInfo" value="10.75.36.64/26" align="right"/>
+            <button onclick="subNetwork1();">计算子网:</button>
+            <input type="text" id="subnetInfo" name="subnetInfo" value="10.75.36.64/26" align="right"/>
+        </div>
+        <br/>
+
+        <div style="margin: 5px">
+            辅助工具2:<br/>
+            IP地址: <input type="text" id="ipAddress" name="ipAddress" value="10.75.36.67" align="right"/><br/>
+            掩码位: <input type="text" id="maskBit" name="maskBit" value="26" align="right"/><br/>
+            <button onclick="subNetwork2();">计算子网:</button>
+            <input type="text" id="subnet" name="subnet" value="10.75.36.64/26" align="right"/>
         </div>
     </div>
     <div id="showview" style="margin-right: 10px;float: left;margin-top:0px" class="right">
