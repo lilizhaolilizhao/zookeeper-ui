@@ -138,7 +138,6 @@ function export_config() {
         exportPaths = exportPaths + ";" + cur_node_fullpath;
     }
 
-
     if (exportPaths && exportPaths != '') {
         //exportPaths = encodeURI(encodeURI(exportPaths));
         window.location.href = contextPath + "/exportConfig?exportPaths=" + encodeURI(encodeURI(exportPaths));
@@ -157,6 +156,10 @@ function export_config() {
         //    }
         //});
     }
+}
+
+function regionConvert() {
+    window.location.href = contextPath + "/regionConvert";
 }
 
 function importConfig() {

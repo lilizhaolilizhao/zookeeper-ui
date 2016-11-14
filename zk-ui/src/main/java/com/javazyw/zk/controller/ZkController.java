@@ -297,6 +297,12 @@ public class ZkController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "regionConvert")
+    public ModelAndView region() throws IOException {
+        return new ModelAndView("region");
+    }
+
+    @ResponseBody
     @RequestMapping(value = "updateZookeeperConfig")
     public ModelAndView importConfig(String zookeeperUrl, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         if (!zookeeperUrl.endsWith("2181")) {

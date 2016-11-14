@@ -33,11 +33,12 @@
         <input type="text" id="zookeeper_url" value=${zookeeperUrl} name="zookeeper_url" align="right"/>
         <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接"
                align="right"/>
+        <a href="javascript:void(0)" onclick="regionConvert();" align="right" style="margin-top: 20px;
+            margin-left: 200px; border-top-width: 50px;">地域转化工具</a>
     </div>
     <div class="zTreeDemoBackground left" style="width: 400px; margin-left:20px">
         <div style="margin: 5px">
             PATH: <input id="add_search">
-
         </div>
         <div style="margin: 5px">
             MODE:
@@ -64,9 +65,7 @@
                 <input type="submit" value="导入配置">
             </form>
         </div>
-        <ul id="zkTree" class="ztree" style="width: 300px;">
-
-        </ul>
+        <ul id="zkTree" class="ztree" style="width: 300px;"/>
     </div>
     <div id="showview" style="margin-right: 10px;float: left;margin-top:15px" class="right">
         <ul>
