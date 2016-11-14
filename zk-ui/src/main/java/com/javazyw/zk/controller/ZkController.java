@@ -1,9 +1,6 @@
 package com.javazyw.zk.controller;
 
-import com.javazyw.zk.util.ClientFactory;
-import com.javazyw.zk.util.ExcelUtil;
-import com.javazyw.zk.util.JsonUtil;
-import com.javazyw.zk.util.XmlFormatUtil;
+import com.javazyw.zk.util.*;
 import com.javazyw.zk.vo.AjaxMessage;
 import com.javazyw.zk.vo.TreeInfo;
 import com.javazyw.zk.vo.TreeVO;
@@ -148,6 +145,19 @@ public class ZkController {
         node.close();
 
         return info;
+    }
+
+    @ResponseBody
+    @RequestMapping("subNetwork1")
+    public TreeInfo subNetwork1(String startIP, String endIP) throws Exception {
+        System.out.println(startIP + "==>" + endIP);
+
+        TreeInfo treeInfo = new TreeInfo();
+
+        String subnetInfo = IPUtils.getSubnetInfo(startIP, endIP);
+        treeInfo.setSubnetInfo(subnetInfo);
+
+        return treeInfo;
     }
 
     @ResponseBody

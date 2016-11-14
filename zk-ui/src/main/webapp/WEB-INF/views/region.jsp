@@ -25,22 +25,10 @@
         <br/>
 
         <div style="margin: 5px">
-            ZOOKEEPER 数据转化:
-            <input type="text" id="zookeeper_url" name="zookeeper_url" align="right"/>
-            <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接"
-                   align="right"/>
-        </div>
-        <div style="margin: 5px">
-            <button onclick="search();">搜索</button>
-            &nbsp;
-            <button onclick="add();">添加节点</button>
-            &nbsp;
-            <button onclick="export_config();">导出配置</button>
-            &nbsp;
-            <form action="./importConfig" method="post" enctype="multipart/form-data">
-                <input type="file" name="myfile"/><br/>
-                <input type="submit" value="导入配置">
-            </form>
+            辅助工具:<br/>
+            开始IP: <input type="text" id="startIP" name="startIP" value="10.75.36.67" align="right"/><br/>
+            结束IP: <input type="text" id="endIP" name="endIP" value="10.75.36.127" align="right"/><br/>
+            <button onclick="subNetwork1();">计算子网:</button> <input type="text" id="subnetInfo" name="subnetInfo" value="10.75.36.64/26" align="right"/>
         </div>
     </div>
     <div id="showview" style="margin-right: 10px;float: left;margin-top:0px" class="right">

@@ -104,6 +104,25 @@ function update() {
     }
 }
 
+function subNetwork1() {
+    var startIP = $('#startIP').val();
+    var endIP = $('#endIP').val();
+
+    if (startIP != '' && endIP != '') {
+        $.ajax({
+            url: contextPath + "/subNetwork1",
+            type: "post",
+            dataType: "json",
+            data: {"startIP": startIP, "endIP": endIP, "data": $('#data').val()},
+            success: function (data) {
+                $('#subnetInfo').val(data.subnetInfo);
+            }
+        });
+    } else {
+        alert("ip不能为空!");
+    }
+}
+
 ///**
 //* 导入excel
 //*/

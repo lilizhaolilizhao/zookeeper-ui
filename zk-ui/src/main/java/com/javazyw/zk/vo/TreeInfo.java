@@ -10,6 +10,16 @@ public class TreeInfo {
 
     private String dataFormat;
 
+    private String subnetInfo;
+
+    public String getSubnetInfo() {
+        return subnetInfo;
+    }
+
+    public void setSubnetInfo(String subnetInfo) {
+        this.subnetInfo = subnetInfo;
+    }
+
     public String getDataFormat() {
         return dataFormat;
     }
