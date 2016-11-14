@@ -208,6 +208,16 @@ function export_config() {
     }
 }
 
+function export_xml_data() {
+    var exceldata = $('#exceldata').text();
+
+    if (exceldata && exceldata != '') {
+        window.location.href = contextPath + "/exportXmlData?exceldata=" + encodeURI(encodeURI(exceldata));
+    } else {
+        alert("预览数据为空!");
+    }
+}
+
 function regionConvert() {
     window.location.href = contextPath + "/regionConvert";
 }

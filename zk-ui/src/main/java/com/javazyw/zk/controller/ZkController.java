@@ -180,14 +180,12 @@ public class ZkController {
         AjaxMessage msg = new AjaxMessage(true, "修改成功!");
 
         try {
-
             if (client.checkExists().forPath(path) != null) {
                 client.setData().forPath(path, data.getBytes());
             } else {
                 msg.setIsSuccess(false);
                 msg.setContent("无此节点信息!");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             msg.setIsSuccess(false);
@@ -261,6 +259,32 @@ public class ZkController {
                     node.close();
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "exportXmlData")
+    public void exportXmlData(String exportXmlData, HttpServletResponse response) throws UnsupportedEncodingException {
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            response.reset();
+
+            String filepath = "RegionConfig.xml";
+            String fileName = URLDecoder.decode(filepath, "utf-8");
+
+            response.setContentType("application/octet-stream");
+            //attachment --- 作为附件下载
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("gb2312"), "ISO8859-1") + "\";");
+            response.setContentType("application/octet-stream");
+
+            writer.write(exportXmlData);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

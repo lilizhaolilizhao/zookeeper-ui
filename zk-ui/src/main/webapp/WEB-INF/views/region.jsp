@@ -21,6 +21,7 @@
                 <input id="excelfile" type="file" name="excelfile"/><br/>
                 <input type="submit" value="数据预览">
             </form>
+            <%--<button onclick="export_xml_data();">导出预览数据</button>--%>
         </div>
         <br/>
 
@@ -45,7 +46,7 @@
         <ul>
             <li>
                 地域配置信息(预览):
-                <textarea style="width: 700px;height: 700px">${exceldata}</textarea>
+                <textarea id="exceldata" style="width: 700px;height: 700px">${exceldata}</textarea>
             </li>
         </ul>
     </div>
