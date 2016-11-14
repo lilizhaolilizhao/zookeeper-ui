@@ -1,6 +1,7 @@
 package com.javazyw.zk.controller;
 
 import com.javazyw.zk.util.ClientFactory;
+import com.javazyw.zk.util.ExcelUtil;
 import com.javazyw.zk.util.JsonUtil;
 import com.javazyw.zk.util.XmlFormatUtil;
 import com.javazyw.zk.vo.AjaxMessage;
@@ -294,6 +295,24 @@ public class ZkController {
         }
 
         return new ModelAndView(new RedirectView("welcome"));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "importExcelData")
+    public ModelAndView importExcelData(@RequestParam MultipartFile excelfile, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+            throws IOException {
+        if (excelfile.isEmpty()) {
+            session.setAttribute("exceldata", "文件为上传!");
+        } else {
+            try {
+                String exceldata = ExcelUtil.excel2XmlMethod(excelfile.getInputStream());
+                session.setAttribute("exceldata", exceldata);
+            } catch (Exception e) {
+                session.setAttribute("exceldata", "数据格式有误:" + e.getMessage());
+            }
+        }
+
+        return new ModelAndView(new RedirectView("regionConvert"));
     }
 
     @ResponseBody

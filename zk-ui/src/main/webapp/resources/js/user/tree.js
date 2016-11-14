@@ -104,6 +104,33 @@ function update() {
     }
 }
 
+///**
+//* 导入excel
+//*/
+//function importExcelData() {
+//    var excelFile = document.getElementById('excelfile');
+//
+//    if (excelFile && excelFile != '') {
+//        $.ajax({
+//            url: contextPath + "/addPath",
+//            type: "post",
+//            dataType: "json",
+//            data: {"path": path, "data": $('#add_data').val(), "flag": $('#flag').val()},
+//            success: function (data) {
+//                if (data.isSuccess) {
+//                    alert(data.content);
+//                    //刷新树
+//                    loadTree();
+//                } else {
+//                    alert(data.content);
+//                }
+//            }
+//        });
+//    } else {
+//        alert("没有选择文件!");
+//    }
+//}
+
 function add() {
     var path = $('#add_search').val();
     if (path && path != '') {
@@ -139,49 +166,12 @@ function export_config() {
     }
 
     if (exportPaths && exportPaths != '') {
-        //exportPaths = encodeURI(encodeURI(exportPaths));
         window.location.href = contextPath + "/exportConfig?exportPaths=" + encodeURI(encodeURI(exportPaths));
-        //$.ajax({
-        //    url: contextPath + "/exportConfig",
-        //    type: "post",
-        //    dataType: "json",
-        //    //data: {"exportPaths": exportPaths},
-        //    data: {"fileName": exportPaths},
-        //    success: function (data) {
-        //        if (data.isSuccess) {
-        //            alert(data.content);
-        //        } else {
-        //            alert(data.content);
-        //        }
-        //    }
-        //});
     }
 }
 
 function regionConvert() {
     window.location.href = contextPath + "/regionConvert";
-}
-
-function importConfig() {
-    alert("1111;");
-    return false;
-    //var form = new FormData(document.getElementById("import_config"));
-    //var file = $('#file').text();
-    //
-    //$.ajax({
-    //    url: contextPath + "/importConfig",
-    //    type: "post",
-    //    dataType: "json",
-    //    data: form,
-    //    success: function (data) {
-    //        //alert(data.content);
-    //        window.clearInterval(timer);
-    //    },
-    //    error:function(e){
-    //        alert("错误！！");
-    //        window.clearInterval(timer);
-    //    }
-    //});
 }
 
 function deletePath() {
@@ -251,6 +241,5 @@ function update_zookeeper_config() {
 
 $(document).ready(function () {
     loadTree();
-    //treeObj = $.fn.zTree.init($("#zkTree"), setting, data);
 });
 

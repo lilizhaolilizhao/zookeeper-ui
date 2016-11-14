@@ -31,7 +31,7 @@
     <div class="content_wrap_title" style="width: 100%">
         <span style="width: 400px">zk ui 树管理 （${SESSION_KEY}）  </span>
         <input type="text" id="zookeeper_url" value=${zookeeperUrl} name="zookeeper_url" align="right"/>
-        <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接"
+        <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接(zookeeper)"
                align="right"/>
         <a href="javascript:void(0)" onclick="regionConvert();" align="right" style="margin-top: 20px;
             margin-left: 200px; border-top-width: 50px;">地域转化工具</a>
