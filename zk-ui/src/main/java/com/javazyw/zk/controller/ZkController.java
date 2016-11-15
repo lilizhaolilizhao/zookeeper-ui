@@ -270,7 +270,9 @@ public class ZkController {
 
     @ResponseBody
     @RequestMapping(value = "exportXmlData")
-    public void exportXmlData(String exportXmlData, HttpServletResponse response) throws UnsupportedEncodingException {
+    public AjaxMessage exportXmlData(String exportXmlData, HttpServletResponse response) throws UnsupportedEncodingException {
+        AjaxMessage msg = new AjaxMessage(true, "保存成功!");
+
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
@@ -285,13 +287,19 @@ public class ZkController {
             response.setContentType("application/octet-stream");
 
             writer.write(exportXmlData);
+
+            msg.setIsSuccess(true);
+            msg.setContent("下载完成!");
         } catch (Exception e) {
-            e.printStackTrace();
+            msg.setIsSuccess(false);
+            msg.setContent("下载异常: " + e.getMessage());
         } finally {
             if (writer != null) {
                 writer.close();
             }
         }
+
+        return msg;
     }
 
     protected void alertAndclose(HttpServletResponse response, String msg) {

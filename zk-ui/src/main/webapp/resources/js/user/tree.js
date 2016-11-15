@@ -82,7 +82,6 @@ function update() {
     var path = $('#path').text();
 
     if (path && path != '') {
-
         if (confirm("确定要修改么？")) {
             $.ajax({
                 url: contextPath + "/updatePathData",
@@ -212,14 +211,26 @@ function export_xml_data() {
     var exceldata = $('#exceldata').text();
 
     if (exceldata && exceldata != '') {
-        window.location.href = contextPath + "/exportXmlData?exceldata=" + encodeURI(encodeURI(exceldata));
+        $.ajax({
+            url: contextPath + "/exportXmlData",
+            type: "post",
+            dataType: "json",
+            data: {"exceldata": $('#exceldata').val()},
+            success: function (data) {
+                if (data.isSuccess) {
+                    alert(data.content);
+                } else {
+                    alert(data.content);
+                }
+            }
+        });
     } else {
         alert("预览数据为空!");
     }
 }
 
 function regionConvert() {
-    window.location.href = contextPath + "/regionConvert";
+    window.open(contextPath + "/regionConvert", "_blank");
 }
 
 function deletePath() {
