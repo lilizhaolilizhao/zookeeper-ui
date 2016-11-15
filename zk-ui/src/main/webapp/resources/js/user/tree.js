@@ -207,27 +207,27 @@ function export_config() {
     }
 }
 
-function export_xml_data() {
-    var exceldata = $('#exceldata').text();
-
-    if (exceldata && exceldata != '') {
-        $.ajax({
-            url: contextPath + "/exportXmlData",
-            type: "post",
-            dataType: "json",
-            data: {"exceldata": $('#exceldata').val()},
-            success: function (data) {
-                if (data.isSuccess) {
-                    alert(data.content);
-                } else {
-                    alert(data.content);
-                }
-            }
-        });
-    } else {
-        alert("预览数据为空!");
-    }
-}
+//function export_xml_data() {
+//    var exceldata = document.getElementById("exceldata").value;
+//
+//    if (exceldata && exceldata != '') {
+//        $.ajax({
+//            url: contextPath + "/exportXmlData",
+//            type: "post",
+//            dataType: "json",
+//            data: {"exceldata": $('#exceldata').val()},
+//            success: function (data) {
+//                if (data.isSuccess) {
+//                    alert(data.content);
+//                } else {
+//                    alert(data.content);
+//                }
+//            }
+//        });
+//    } else {
+//        alert("预览数据为空!");
+//    }
+//}
 
 function regionConvert() {
     window.open(contextPath + "/regionConvert", "_blank");
