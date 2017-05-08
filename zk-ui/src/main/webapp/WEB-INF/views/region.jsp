@@ -29,8 +29,14 @@
             辅助工具1:<br/>
             开始IP: <input type="text" id="startIP" name="startIP" value="10.75.36.67" align="right"/><br/>
             结束IP: <input type="text" id="endIP" name="endIP" value="10.75.36.127" align="right"/><br/>
-            <button onclick="subNetwork1();">计算子网:</button>
-            <input type="text" id="subnetInfo" name="subnetInfo" value="10.75.36.64/26" align="right"/>
+            <button onclick="subNetwork1();">计算子网(包含关系):</button>
+            <input type="text" id="subnetInfo" name="subnetInfo" value="10.75.36.64/26" align="right"/><br/>
+            <button onclick="subNetwork3();">计算子网(精确匹配):</button><br/>
+            <textarea id="subnetInfo3" name="subnetInfo3" style="width:200px;height:80px;" align="right">10.75.36.67/32
+10.75.36.68/30
+10.75.36.72/29
+10.75.36.80/28
+10.75.36.96/27</textarea>
         </div>
         <br/>
 

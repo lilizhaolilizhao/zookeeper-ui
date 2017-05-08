@@ -2,6 +2,9 @@ package com.javazyw.zk.util;
 
 import com.google.common.base.Strings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lilizhao on 16-11-11.
  */
@@ -105,6 +108,58 @@ public class IPUtils {
 
         return subnetInfo;
     }
+
+    /**
+     * 得到公共前缀
+     *
+     * @param ip1
+     * @param ip2
+     * @return
+     */
+    public static String getSubnetInfo3(String ip1, String ip2) {
+        return range2cidrlist(ip1, ip2);
+    }
+
+    public static String range2cidrlist(String startIp, String endIp) {
+        long start = ipToLong(startIp);
+        long end = ipToLong(endIp);
+
+        StringBuilder builder = new StringBuilder();
+        while (end >= start) {
+            byte maxsize = 32;
+            while (maxsize > 0) {
+                long mask = CIDR2MASK[maxsize - 1];
+                long maskedBase = start & mask;
+
+                if (maskedBase != start) {
+                    break;
+                }
+
+                maxsize--;
+            }
+            double x = Math.log(end - start + 1) / Math.log(2);
+            byte maxdiff = (byte) (32 - Math.floor(x));
+            if (maxsize < maxdiff) {
+                maxsize = maxdiff;
+            }
+            String ip = longToIP(start);
+            builder.append(ip + "/" + maxsize);
+            builder.append("\n");
+            start += Math.pow(2, (32 - maxsize));
+        }
+
+        String ipInfos = builder.toString();
+        return ipInfos;
+    }
+
+    public static final int[] CIDR2MASK = new int[]{0x00000000, 0x80000000,
+            0xC0000000, 0xE0000000, 0xF0000000, 0xF8000000, 0xFC000000,
+            0xFE000000, 0xFF000000, 0xFF800000, 0xFFC00000, 0xFFE00000,
+            0xFFF00000, 0xFFF80000, 0xFFFC0000, 0xFFFE0000, 0xFFFF0000,
+            0xFFFF8000, 0xFFFFC000, 0xFFFFE000, 0xFFFFF000, 0xFFFFF800,
+            0xFFFFFC00, 0xFFFFFE00, 0xFFFFFF00, 0xFFFFFF80, 0xFFFFFFC0,
+            0xFFFFFFE0, 0xFFFFFFF0, 0xFFFFFFF8, 0xFFFFFFFC, 0xFFFFFFFE,
+            0xFFFFFFFF};
 
     /**
      * @param args

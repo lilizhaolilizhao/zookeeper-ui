@@ -122,6 +122,25 @@ function subNetwork1() {
     }
 }
 
+function subNetwork3() {
+    var startIP = $('#startIP').val();
+    var endIP = $('#endIP').val();
+
+    if (startIP != '' && endIP != '') {
+        $.ajax({
+            url: contextPath + "/subNetwork3",
+            type: "post",
+            dataType: "json",
+            data: {"startIP": startIP, "endIP": endIP, "data": $('#data').val()},
+            success: function (data) {
+                $('#subnetInfo3').val(data.subnetInfo);
+            }
+        });
+    } else {
+        alert("ip不能为空!");
+    }
+}
+
 function subNetwork2() {
     var ipAddress = $('#ipAddress').val();
     var maskBit = $('#maskBit').val();

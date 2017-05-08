@@ -161,6 +161,19 @@ public class ZkController {
     }
 
     @ResponseBody
+    @RequestMapping("subNetwork3")
+    public TreeInfo subNetwork3(String startIP, String endIP) throws Exception {
+        System.out.println(startIP + "==>" + endIP);
+
+        TreeInfo treeInfo = new TreeInfo();
+
+        String subnetInfo = IPUtils.getSubnetInfo3(startIP.trim(), endIP.trim());
+        treeInfo.setSubnetInfo(subnetInfo);
+
+        return treeInfo;
+    }
+
+    @ResponseBody
     @RequestMapping("subNetwork2")
     public TreeInfo subNetwork2(String ipAddress, String maskBit) throws Exception {
         System.out.println(ipAddress + "==>" + maskBit);
@@ -343,7 +356,6 @@ public class ZkController {
                         client.setData().forPath(lines[0], data);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
                     logger.warn("写入数据失败" + e.getMessage());
                 }
             }
