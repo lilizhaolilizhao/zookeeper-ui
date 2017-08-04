@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -38,7 +40,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login")
-    public ModelAndView login(String username, String password, HttpSession session) {
+    public ModelAndView login(String username, String password, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         String msg = "";
 
         username = "admin";
@@ -66,14 +68,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "welcome")
-    public ModelAndView welcome(HttpSession session) {
-
-        return new ModelAndView("main");
+    public ModelAndView welcome(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mainView = new ModelAndView("main");
+        return mainView;
     }
 
     @RequestMapping(value = "logout")
     public ModelAndView logout(HttpSession session) {
-
         return new ModelAndView(new RedirectView("toLogin"));
     }
 

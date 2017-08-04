@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%--<iframe src="/views/first.jsp" name="mainFrame"  frameborder="0" marginheight="0" marginwidth="0" height="700" width="100%"></iframe>--%>
 
 <html>
 <head>

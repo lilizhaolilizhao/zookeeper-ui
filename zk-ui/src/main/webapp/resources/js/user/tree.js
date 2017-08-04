@@ -50,7 +50,7 @@ function zTreeOnClick(event, treeId, treeNode) {
     $('#data').val('');
     $('#path').text(path);
 
-    //alert(treeNode.fullPath);
+    alert(treeNode.fullPath);
 
     $.ajax({
         url: contextPath + "/getNodeInfo",

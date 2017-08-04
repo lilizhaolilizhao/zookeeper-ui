@@ -2,9 +2,6 @@ package com.javazyw.zk.util;
 
 import com.google.common.base.Strings;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by lilizhao on 16-11-11.
  */

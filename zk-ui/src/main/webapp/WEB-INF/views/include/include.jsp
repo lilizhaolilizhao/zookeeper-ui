@@ -1,13 +1,21 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%--<c:set var="ctx" value="${pageContext.request.contextPath}"/>--%>
+<c:set var="ctx" value="http://localhost:8080/zooutil"/>
+<%--<c:set var="ctx" value="${window.document.location.href}.substring(0, curPath.lastIndexOf('/')"/>--%>
 <%-- <link rel="icon" href="${ctx }/resources/image/logo.png" type="image/x-icon"> --%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<script type="text/javascript">
+    <%--var curPath = window.document.location.href;--%>
+    <%--var ctx = curPath.substring(0, curPath.lastIndexOf('/') + 1);--%>
+    var contextPath = "${ctx}";
+    alert(ctx);
+</script>
 <base href="<%=basePath%>">
 <script type="text/javascript" src="${ctx }/resources/js/jquery.min.js"></script>
 
@@ -31,6 +39,4 @@
 
 <%--  <link rel="stylesheet" href="${ctx}/resources/css/style.css" type="text/css"> --%>
 
-<script type="text/javascript">
-    var contextPath = "${ctx}";
-</script>
+
