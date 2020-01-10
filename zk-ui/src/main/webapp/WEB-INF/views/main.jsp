@@ -33,8 +33,8 @@
         <input type="text" id="zookeeper_url" value=${zookeeperUrl} name="zookeeper_url" align="right"/>
         <input type="button" name="update_zookeeper_config" onclick="update_zookeeper_config()" value="更换连接(zookeeper)"
                align="right"/>
-        <a href="javascript:void(0)" onclick="regionConvert();" align="right" style="margin-top: 20px;
-            margin-left: 200px; border-top-width: 50px;">地域转化工具</a>
+<%--        <a href="javascript:void(0)" onclick="regionConvert();" align="right" style="margin-top: 20px;--%>
+<%--            margin-left: 200px; border-top-width: 50px;">地域转化工具</a>--%>
     </div>
     <div class="zTreeDemoBackground left" style="width: 400px; margin-left:20px">
         <div style="margin: 5px">
